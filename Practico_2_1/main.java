@@ -9,13 +9,18 @@ public class main {
         arbol.insert(16);
         arbol.insert(10);
         arbol.insert(17);
-
     //  arbol.printTree();
+        System.out.println("Print in order: ");
         arbol.printInOrder();
-        System.out.println(" ");
+        System.out.println("\n Print pos order");
+        arbol.printPosOrder();
+        System.out.println("\n Print pre order");
+        arbol.printPreOrder();
+     /*   System.out.println(" ");
         System.out.println("Se borro el elemento 17?: " + arbol.delete(17));
         System.out.println(" ");
-        arbol.printInOrder();
+        arbol.printInOrder();*/
     //  arbol.printTree();
+        System.out.println("\n Altura: " + arbol.getHeight());
     }
 }

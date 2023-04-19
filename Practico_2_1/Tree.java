@@ -14,6 +14,12 @@ public class Tree {
     public Integer getRoot() {
         return value;
     }
+    private Tree getRight(){
+        return right;
+    }
+    private Tree getLeft(){
+        return left;
+    }
 
     public boolean hasElem(Integer elem) {
         boolean response;
@@ -73,9 +79,21 @@ public class Tree {
         if (right != null) {
             right.printInOrder();
         }
-
     }
-
+    public void printPosOrder(){
+        if(left != null)
+            left.printPosOrder();
+        if(right != null)
+            right.printPosOrder();
+        System.out.print(value + " ");
+    }
+    public void printPreOrder(){
+        System.out.print(value + " ");
+        if(left != null)
+            left.printPreOrder();
+        if(right != null)
+            right.printPreOrder();
+    }
     public boolean delete(Integer elem){
         return this.deleteWithParent(null,elem);
      }
@@ -127,6 +145,24 @@ public class Tree {
                     this.value=value_NMISB;
                     return true;
                 }
+            }else{
+                if(right == null && left == null) {
+                    value = null;
+                }
+                else if((right == null ) || (left== null) ){
+                    if(right !=null) {
+                        value = right.getRoot();
+                        right = right.getRight();
+                    } else {
+                        value = left.getRoot();
+                        left = left.getLeft();
+                    }
+                }else{
+                    Integer value_NMISB = this.searchNMISB().getRoot();
+                    this.deleteWithParent(this,value_NMISB);
+                    this.value=value_NMISB;
+                }
+                return true;
             }
         }
         return false;
@@ -139,6 +175,25 @@ public class Tree {
             return this;
         }
     }
+    public int getHeight(){
+        return getHeight(0);
+    }
+    private int getHeight(int altura){
+        if(left == null && right == null){
+            return altura;
+        }else{
+            int alturaIzq = 0, alturaDer = 0;
+            if(left != null)
+                alturaIzq = left.getHeight(altura+1);
+            if(right != null)
+                alturaDer = right.getHeight(altura+1);
+            if(alturaIzq > alturaDer)
+                return alturaIzq;
+            else
+                return alturaDer;
+        }
+    }
+
 
     // HECHO CON CHAT GPT SOLO DE PRUEBA
     public void printTree() {
