@@ -1,5 +1,7 @@
 package Practico_2_1;
 
+import java.util.ArrayList;
+
 public class Tree {
     private Integer value;
     private Tree left;
@@ -193,8 +195,43 @@ public class Tree {
                 return alturaDer;
         }
     }
-
-
+    public ArrayList<Tree> getLongestBranch(){
+        return getLongestBranch(new ArrayList<Tree>());
+    }
+    private ArrayList<Tree> getLongestBranch(ArrayList<Tree> aux) {
+        if(left != null && right != null){
+            if(left.getHeight() > right.getHeight()){
+                aux.add(left);
+                return left.getLongestBranch(aux);
+            }else{
+                aux.add(right);
+                return right.getLongestBranch(aux);
+            }
+        }else if (left != null){
+            aux.add(left);
+            return left.getLongestBranch(aux);
+        }else if (right != null){
+            aux.add(right);
+            return right.getLongestBranch(aux);
+        }
+        return aux;
+    }
+    public ArrayList<Tree> getFrontera(){
+        return getFrontera(new ArrayList<Tree>());
+    }
+    private ArrayList<Tree> getFrontera(ArrayList<Tree> aux){
+        if(left == null && right == null){
+            aux.add(this);
+        }else if(right != null && left != null){
+            aux.addAll(left.getFrontera(aux));
+            aux.addAll(right.getFrontera(aux));
+        }else if(left != null){
+            aux.addAll(left.getFrontera(aux));
+        }else{
+            aux.addAll(right.getFrontera(aux));
+        }
+        return aux;
+    }
     // HECHO CON CHAT GPT SOLO DE PRUEBA
     public void printTree() {
         printSubTree("", true);

@@ -9,6 +9,8 @@ public class main {
         arbol.insert(16);
         arbol.insert(10);
         arbol.insert(17);
+        arbol.insert(11);
+
     //  arbol.printTree();
         System.out.println("Print in order: ");
         arbol.printInOrder();
@@ -22,5 +24,14 @@ public class main {
         arbol.printInOrder();*/
     //  arbol.printTree();
         System.out.println("\n Altura: " + arbol.getHeight());
+        System.out.println("Rama mas larga: ");
+        for(Tree t: arbol.getLongestBranch()){
+            System.out.print(t.getRoot() + " ");
+        }
+        System.out.println("\n Frontera: ");
+        for(Tree t: arbol.getFrontera()){
+            System.out.print(t.getRoot() + " ");
+        }
+
     }
 }
