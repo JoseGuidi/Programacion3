@@ -23,7 +23,7 @@ public class Tree {
         return left;
     }
 
-    public boolean hasElem(Integer elem) {
+    public boolean hasElem(Integer elem) { //O(n)
         boolean response;
         if (left != null) {
             if (left.value.equals(elem)) {
@@ -45,9 +45,9 @@ public class Tree {
 
     public boolean isEmpty() {
         return value == null;
-    }
+    } //O(1)
 
-    public void insert(Integer elem) {
+    public void insert(Integer elem) { //O(log(n))
         if (value > elem) {
             if (left == null) {
                 left = new Tree(elem);
@@ -71,7 +71,7 @@ public class Tree {
         this.right = right;
     }
 
-    public void printInOrder() {
+    public void printInOrder() { //O(n)
         if (left != null) {
             left.printInOrder();
         }
@@ -82,14 +82,14 @@ public class Tree {
             right.printInOrder();
         }
     }
-    public void printPosOrder(){
+    public void printPosOrder(){//O(n)
         if(left != null)
             left.printPosOrder();
         if(right != null)
             right.printPosOrder();
         System.out.print(value + " ");
     }
-    public void printPreOrder(){
+    public void printPreOrder(){//O(n)
         System.out.print(value + " ");
         if(left != null)
             left.printPreOrder();
@@ -196,39 +196,59 @@ public class Tree {
         }
     }
     public ArrayList<Tree> getLongestBranch(){
-        return getLongestBranch(new ArrayList<Tree>());
-    }
-    private ArrayList<Tree> getLongestBranch(ArrayList<Tree> aux) {
+        ArrayList<Tree> aux = new ArrayList<Tree>();
         if(left != null && right != null){
             if(left.getHeight() > right.getHeight()){
                 aux.add(left);
-                return left.getLongestBranch(aux);
+                aux.addAll(left.getLongestBranch());
             }else{
                 aux.add(right);
-                return right.getLongestBranch(aux);
+                aux.addAll(right.getLongestBranch());
             }
-        }else if (left != null){
+        }else if(left != null){
             aux.add(left);
-            return left.getLongestBranch(aux);
-        }else if (right != null){
+            aux.addAll(left.getLongestBranch());
+        }else if(right != null){
             aux.add(right);
-            return right.getLongestBranch(aux);
+            aux.addAll(right.getLongestBranch());
         }
         return aux;
     }
+
     public ArrayList<Tree> getFrontera(){
-        return getFrontera(new ArrayList<Tree>());
-    }
-    private ArrayList<Tree> getFrontera(ArrayList<Tree> aux){
+        ArrayList<Tree> aux = new ArrayList<>();
         if(left == null && right == null){
             aux.add(this);
-        }else if(right != null && left != null){
-            aux.addAll(left.getFrontera(aux));
-            aux.addAll(right.getFrontera(aux));
-        }else if(left != null){
-            aux.addAll(left.getFrontera(aux));
         }else{
-            aux.addAll(right.getFrontera(aux));
+            if(right != null){
+                aux.addAll(right.getFrontera());
+            }
+            if(left != null){
+                aux.addAll(left.getFrontera());
+            }
+        }
+        return aux;
+    }
+    public Integer getMaxElem(){
+        if(right != null)
+            return right.getMaxElem();
+        else
+            return this.getRoot();
+    }
+    public ArrayList<Tree> getElemAtLevel(int level){
+        return getElemAtLevel(level,0);
+    }
+    private ArrayList<Tree> getElemAtLevel( int level, int actualH){
+        ArrayList<Tree> aux = new ArrayList<>();
+        if(level > actualH){// tengo que avanzar de nivel
+            if(left != null){
+                aux.addAll(left.getElemAtLevel(level,actualH+1));
+            }
+            if(right != null){
+                aux.addAll(right.getElemAtLevel(level,actualH+1));
+            }
+        }else if(level == actualH){ //agregar nodos
+            aux.add(this);
         }
         return aux;
     }
