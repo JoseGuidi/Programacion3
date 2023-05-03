@@ -41,6 +41,10 @@ public class main {
         for (Tree t: arbol.getElemAtLevel(4)){
             System.out.print(t.getRoot() + " ");
         }
-
+        System.out.println("\nSuma de internos: " + arbol.getSumOfIntern() );
+        System.out.println("\nHojas mayores a 8: ");
+        for (Tree t: arbol.getLeavesBiggerThat(8)){
+            System.out.print(t.getRoot() + " ");
+        }
     }
 }

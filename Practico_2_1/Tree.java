@@ -169,7 +169,6 @@ public class Tree {
         }
         return false;
     }
-
     public Tree searchNMISB(){
         if(left != null){
             return left.searchNMISB();
@@ -252,6 +251,39 @@ public class Tree {
         }
         return aux;
     }
+    public int getSumOfIntern(){
+        int suma = 0;
+        if(left != null || right != null) {
+            suma = value;
+            if (left != null) {
+                suma += left.getSumOfIntern();
+            }
+            if (right != null) {
+                suma += right.getSumOfIntern();
+            }
+        }
+        return suma;
+    }
+    public ArrayList<Tree> getLeavesBiggerThat(Integer k){
+        ArrayList<Tree> aux = new ArrayList<>();
+        if(left == null && right == null){ // son hojas
+            if(value > k)
+                aux.add(this);
+        }else{ //tiene hijos
+            if(value > k){  //si mi valor es mayor al que quiero encontrar
+                            // puede ser que a la izquierda o derecha del nodo tmb
+                            // sea mayores al k
+                if(left != null)
+                    aux.addAll(left.getLeavesBiggerThat(k));
+                if(right != null)
+                    aux.addAll(right.getLeavesBiggerThat(k));
+            }else{  //seguir navegando para encontrar el mayor
+                if(right != null)
+                    aux.addAll(right.getLeavesBiggerThat(k));
+            }
+        }
+        return aux;
+    }
     // HECHO CON CHAT GPT SOLO DE PRUEBA
     public void printTree() {
         printSubTree("", true);
@@ -265,5 +297,9 @@ public class Tree {
         if (left != null) {
             left.printSubTree(prefix + (isTail ? "    " : "│   "), isTail && right == null);
         }
+    }
+
+    public int setValueNodes() {
+        return 0;
     }
 }
