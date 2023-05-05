@@ -20,4 +20,13 @@ public class Arco<T> {
     public T getEtiqueta() {
         return etiqueta;
     }
+
+    @Override
+    public String toString() {
+        return "(" +origen + "," + destino + ")";
+    }
+
+    public boolean incluyeVertice(int idVertice){
+        return (origen == idVertice || destino == idVertice);
+    }
 }
