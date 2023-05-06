@@ -7,41 +7,47 @@ import java.util.List;
 
 public class ServicioDFS {
     private Grafo<?> grafo;
-    private HashMap<Integer,String> recorrido;
+    private HashMap<Integer,VerticeRecorrido> recorrido;
     // en ves de string podria ser otra clase q tenga color, descu y final
     int tiempo;
+    private  ArrayList<Integer> listaDeRecorridos;
     public ServicioDFS(Grafo<?> grafo) {
         this.grafo = grafo;
         this.recorrido = new HashMap<>();
         this.tiempo = 0;
+        listaDeRecorridos = new ArrayList<>();
     }
 
     public List<Integer> dfsForest() {
-        Iterator<Integer> it = grafo.obtenerVertices();
-        while (it.hasNext()){
-            recorrido.put(it.next(), "BLANCO");
+        Iterator<Integer> vertices = grafo.obtenerVertices();
+        while (vertices.hasNext()){
+            recorrido.put(vertices.next(),new VerticeRecorrido());
         }
-        it = recorrido.keySet().iterator();
-        while(it.hasNext()) {
-            if(recorrido.get(it.next()).equals("BLANCO")){
-               visitar(it.next());
-            }
-        }
-        return new ArrayList<>();
-    }
-    private void visitar(Integer vertice){
-        recorrido.put(vertice,"AMARILLO");
-        tiempo++;
-        // descubrimiento
-        Iterator<Integer> it = grafo.obtenerAdyacentes(vertice);
-        Integer temp;
-        while (it.hasNext()){
-            temp = it.next();
-            if(recorrido.get(temp).equals("BLANCO")){
+
+        tiempo = 0;
+        vertices = recorrido.keySet().iterator();
+        while (vertices.hasNext()){
+            Integer temp = vertices.next();
+            if(recorrido.get(temp).getColor().equals("BLANCO")){
                 visitar(temp);
             }
         }
-        recorrido.put(vertice,"NEGRO");
+        return listaDeRecorridos;
+    }
+    private void visitar(Integer vertice){
+        recorrido.get(vertice).setColor("AMARILLO");
         tiempo++;
+        recorrido.get(vertice).settDescubrimiento(tiempo);
+        Iterator<Integer> vAdyacentes = grafo.obtenerAdyacentes(vertice);
+        while (vAdyacentes.hasNext()){
+            Integer temp = vAdyacentes.next();
+            if(recorrido.get(temp).getColor().equals("BLANCO")){
+                visitar(temp);
+            }
+        }
+        recorrido.get(vertice).setColor("NEGRO");
+        listaDeRecorridos.add(vertice);
+        tiempo++;
+        recorrido.get(vertice).settFinal(tiempo);
     }
 }

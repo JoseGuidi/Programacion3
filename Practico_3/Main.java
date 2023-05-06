@@ -47,8 +47,10 @@ public class Main {
         while (arcoIteratorVertice.hasNext()){
             System.out.println(arcoIteratorVertice.next());
         }
-
+        System.out.println("-----DFS------");
         ServicioDFS dfs = new ServicioDFS(grafo);
-        dfs.dfsForest();
+        for(Integer i: dfs.dfsForest()){
+            System.out.println(i);
+        }
     }
 }
