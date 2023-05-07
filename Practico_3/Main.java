@@ -52,5 +52,10 @@ public class Main {
         for(Integer i: dfs.dfsForest()){
             System.out.println(i);
         }
+        System.out.println("-----BFS------");
+        ServicioBFS bfs = new ServicioBFS(grafo);
+        for(Integer i: bfs.bfsForest()){
+            System.out.println(i);
+        }
     }
 }

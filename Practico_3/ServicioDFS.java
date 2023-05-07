@@ -43,6 +43,8 @@ public class ServicioDFS {
             Integer temp = vAdyacentes.next();
             if(recorrido.get(temp).getColor().equals("BLANCO")){
                 visitar(temp);
+            }else if (recorrido.get(temp).getColor().equals("AMARILLO")){
+                System.out.println("Hay ciclo");
             }
         }
         recorrido.get(vertice).setColor("NEGRO");
