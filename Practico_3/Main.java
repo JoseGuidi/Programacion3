@@ -1,6 +1,12 @@
 package Practico_3;
 
+import Practico_3.Servicios.ServicioBFS;
+import Practico_3.Servicios.ServicioCaminos;
+import Practico_3.Servicios.ServicioDFS;
+
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -56,6 +62,27 @@ public class Main {
         ServicioBFS bfs = new ServicioBFS(grafo);
         for(Integer i: bfs.bfsForest()){
             System.out.println(i);
+        }
+        System.out.println("-----CAMINOS------");
+        GrafoDirigido<Integer> grafo2 = new GrafoDirigido<>();
+        grafo2.agregarVertice(1);
+        grafo2.agregarVertice(3);
+        grafo2.agregarVertice(5);
+        grafo2.agregarVertice(9);
+        grafo2.agregarVertice(4);
+        grafo2.agregarVertice(8);
+
+        grafo2.agregarArco(1,3,null);
+        grafo2.agregarArco(1,5,null);
+        grafo2.agregarArco(1,9,null);
+        grafo2.agregarArco(3,8,null);
+        grafo2.agregarArco(5,8,null);
+        grafo2.agregarArco(9,4,null);
+        grafo2.agregarArco(4,8,null);
+
+        ServicioCaminos scaminos = new ServicioCaminos(grafo2,1,8,2);
+        for(List<Integer> a: scaminos.caminos()){
+            System.out.println(a.toString());
         }
     }
 }

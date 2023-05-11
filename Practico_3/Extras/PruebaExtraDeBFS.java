@@ -1,4 +1,7 @@
-package Practico_3;
+package Practico_3.Extras;
+
+import Practico_3.GrafoDirigido;
+import Practico_3.Servicios.ServicioBFS;
 
 public class PruebaExtraDeBFS {
     public static void main(String[] args) {

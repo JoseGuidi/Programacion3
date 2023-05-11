@@ -1,4 +1,6 @@
-package Practico_3;
+package Practico_3.Servicios;
+
+import Practico_3.Grafo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

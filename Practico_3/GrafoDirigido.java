@@ -1,5 +1,7 @@
 package Practico_3;
 
+import Practico_3.Servicios.ServicioDFS;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -145,7 +147,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
         }else
             return null;
     }
-
+    public boolean existeCiclo(){
+        ServicioDFS dfs = new ServicioDFS(this);
+        return dfs.existeCiclo();
+    }
 
     // HECHO POR CHAT GPT
     public void imprimirGrafo() {

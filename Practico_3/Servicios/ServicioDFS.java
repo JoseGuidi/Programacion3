@@ -1,4 +1,7 @@
-package Practico_3;
+package Practico_3.Servicios;
+
+import Practico_3.Grafo;
+import Practico_3.VerticeRecorrido;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,11 +10,13 @@ import java.util.List;
 
 public class ServicioDFS {
     private Grafo<?> grafo;
-    private HashMap<Integer,VerticeRecorrido> recorrido;
+    private boolean ciclico;
+    private HashMap<Integer, VerticeRecorrido> recorrido;
     // en ves de string podria ser otra clase q tenga color, descu y final
     int tiempo;
     private  ArrayList<Integer> listaDeRecorridos;
     public ServicioDFS(Grafo<?> grafo) {
+        this.ciclico = false;
         this.grafo = grafo;
         this.recorrido = new HashMap<>();
         this.tiempo = 0;
@@ -44,12 +49,16 @@ public class ServicioDFS {
             if(recorrido.get(temp).getColor().equals("BLANCO")){
                 visitar(temp);
             }else if (recorrido.get(temp).getColor().equals("AMARILLO")){
-                System.out.println("Hay ciclo");
+                ciclico = true;
             }
         }
         recorrido.get(vertice).setColor("NEGRO");
         listaDeRecorridos.add(vertice);
         tiempo++;
         recorrido.get(vertice).settFinal(tiempo);
+    }
+
+    public boolean existeCiclo() {
+        return ciclico;
     }
 }
