@@ -1,0 +1,25 @@
+class Estado
+	ArrayList<Tarea> t
+	ArrayList<Procesador> p
+	ArrayList<Tarea,Procesador> sol
+	ArrayList<Procesador> pUsados
+Class Tarea 
+	double tiempoEjecucion
+	getTiempo()
+
+public backtracking(Estado e)
+	if(e.getTareas().isEmpty())
+		return e.getSolucion()
+	else
+		Iterator<Procesador> itP = e.getProcesadores().iterator()
+		Procesador pAux = itP.next()
+		while(itP.hasNext())
+		   if(!e.getPUsados().contains(pAux))
+			e.removeProcesador(pAux) // remueve el pAux del ArrayList p				Tarea tAux = t.removeTarea()//remueve y retorna la tarea de la pos 0			e.getSolucion().add(tAux,pAux)
+			backtracking(e)
+			e.insertarProcesador(pAux)// inserta al inicio de la lista
+			e.insertarTarea(tAux)//la inserta al inicio
+			e.addPUsado(pAux) lo agrega a pUsados		
+			pAux = itP.next()
+
+		return null
